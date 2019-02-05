@@ -76,6 +76,6 @@ char *Sock_ntop(const struct sockaddr *sa, socklen_t salen)
 {
     char *ptr;
     if ((ptr = sock_ntop(sa, salen)) == NULL)
-        err_sys("sock_ntop error");    /* inet_ntop() sets errno */
+        printf("sock_ntop error\n");    /* inet_ntop() sets errno */
     return(ptr);
 }

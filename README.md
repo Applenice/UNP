@@ -6,4 +6,6 @@
 
 😋当前进度：  
 
-1、introduce 第一章 简介  
+1、introduce  
+2、lib  
+3、libfree  

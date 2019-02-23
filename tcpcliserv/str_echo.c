@@ -2,21 +2,24 @@
 
 void str_echo(int sockfd)
 {
-    long arg1, arg2;
     ssize_t n;
-    char line[MAXLINE];
+    char buf[MAXLINE];
 
+again:
     for ( ; ; )
     {
-        if ((n = readline(sockfd, line, MAXLINE)) == 0)
-            return;        /* connection closed by other end */
+        while ((n = readn(sockfd, buf, MAXLINE)) > 0)
+        {
+            writen(sockfd, buf, n);
+        }
 
-        if (sscanf(line, "%ld%ld", &arg1, &arg2) == 2)
-            snprintf(line, sizeof(line), "%ld\n", arg1 + arg2);
-        else
-            snprintf(line, sizeof(line), "input error\n");
-
-        n = strlen(line);
-        writen(sockfd, line, n);
+        if (n < 0 && errno == EINTR)
+        {
+            goto again;
+        }
+        else if (n < 0)
+        {
+            printf("str_echo: read error");
+        }
     }
 }

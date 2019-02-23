@@ -18,4 +18,6 @@
 #define	SERV_PORT 9877  /* TCP and UDP */
 
 void str_echo(int);
+void str_cli(FILE *, int);
+
 #endif

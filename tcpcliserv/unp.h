@@ -1,8 +1,6 @@
 #ifndef __unp_h
 #define __unp_h
 
-#define    MAXLINE 4096    /* max text line length */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

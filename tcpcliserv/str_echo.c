@@ -8,7 +8,7 @@ void str_echo(int sockfd)
 again:
     for ( ; ; )
     {
-        while ((n = readn(sockfd, buf, MAXLINE)) > 0)
+        while ((n = read(sockfd, buf, MAXLINE)) > 0)
         {
             writen(sockfd, buf, n);
         }

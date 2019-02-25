@@ -7,7 +7,7 @@ int main(int argc, char **argv)
 
     if (argc != 2)
     {
-        printf("usage: tcpcli <IPaddress>");
+        err_quit("usage: tcpcli <IPaddress>");
     }
 
     sockfd = socket(AF_INET, SOCK_STREAM, 0);

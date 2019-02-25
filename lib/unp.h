@@ -15,9 +15,9 @@
 #include <unistd.h>
 #include <sys/wait.h>
 
-#define	MAXLINE 4096    /* max text line length */
+#define MAXLINE 4096    /* max text line length */
 #define LISTENQ 1024    /* 2nd argument to listen() */
-#define	SERV_PORT 9877  /* TCP and UDP */
+#define SERV_PORT 9877  /* TCP and UDP */
 
 ssize_t writen(int, const void *, size_t);
 void Writen(int, void *, size_t);
@@ -42,5 +42,11 @@ void str_cli(FILE *, int);
 
 typedef void Sigfunc(int);
 Sigfunc *Signal(int, Sigfunc *);
+
+void err_dump(const char *, ...);
+void err_msg(const char *, ...);
+void err_quit(const char *, ...);
+void err_ret(const char *, ...);
+void err_sys(const char *, ...);
 
 #endif

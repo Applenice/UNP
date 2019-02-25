@@ -10,7 +10,7 @@ again:
     {
         while ((n = read(sockfd, buf, MAXLINE)) > 0)
         {
-            write(sockfd, buf, n);
+            Writen(sockfd, buf, n);
         }
 
         if (n < 0 && errno == EINTR)
@@ -19,7 +19,7 @@ again:
         }
         else if (n < 0)
         {
-            printf("str_echo: read error");
+            err_sys("str_echo: read error");
         }
     }
 }

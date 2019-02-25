@@ -10,7 +10,7 @@ void str_cli(FILE *fp, int sockfd)
 
         if (Readline(sockfd, recvline, MAXLINE) == 0)
         {
-            printf("str_cli: server terminated prematurely");
+            err_quit("str_cli: server terminated prematurely");
         }
 
         fputs(recvline, stdout);

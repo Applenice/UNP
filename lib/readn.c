@@ -30,6 +30,6 @@ ssize_t Readn(int fd, void *ptr, size_t nbytes)
     ssize_t n;
 
     if ((n = readn(fd, ptr, nbytes)) < 0)
-        printf("readn error\n");
+        err_sys("readn error\n");
     return(n);
 }

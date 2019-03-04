@@ -36,9 +36,6 @@ int main(int argc, char **argv)
         {
             clilen = sizeof(cliaddr);
             connfd = accept(listenfd, (struct sockaddr *) &cliaddr, &clilen);
-            #ifdef NOTDEF
-                printf("new client: %s\n", sock_ntop((struct sockaddr *) &cliaddr, clilen));
-            #endif
 
             for (i = 1; i < OPEN_MAX; i++)
             {
@@ -69,18 +66,12 @@ int main(int argc, char **argv)
                 {
                     if (errno == ECONNRESET)
                     {
-                        #ifdef NOTDEF
-                            printf("client[%d] aborted connection\n", i);
-                        #endif
                         close(sockfd);
                         client[i].fd = -1;
                     } else
                         err_sys("read error");
                 } else if (n == 0)
                 {
-                    #ifdef NOTDEF
-                        printf("client[%d] closed connection\n", i);
-                    #endif
                     close(sockfd);
                     client[i].fd = -1;
                 } else {

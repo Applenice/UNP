@@ -37,16 +37,15 @@ int main(int argc, char **argv)
         {
             clilen = sizeof(cliaddr);
             connfd = accept(listenfd, (struct sockaddr *) &cliaddr, &clilen);
-            #ifdef NOTDEF
-                printf("new client: %s, port %d\n", inet_ntop(AF_INET, &cliaddr.sin_addr, 4, NULL), ntohs(cliaddr.sin_port));
-            #endif
 
             for (i = 0; i < FD_SETSIZE; i++)
+            {
                 if (client[i] < 0)
                 {
                     client[i] = connfd;
                     break;
                 }
+            }
             if (i == FD_SETSIZE)
                 err_quit("too many clients");
 

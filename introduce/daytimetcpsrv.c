@@ -1,4 +1,4 @@
-#include "../lib/unp.h"
+#include "unp.h"
 
 int main(int argc, char **argv)
 {
@@ -7,7 +7,7 @@ int main(int argc, char **argv)
     char buff[MAXLINE];
     time_t ticks;
 
-    if ((listenfd = socket(AF_INET, SOCK_STREAM, 0)) < 0)
+    if ((listenfd = Socket(AF_INET, SOCK_STREAM, 0)) < 0)
     {   
         printf("create listenfd fail\n");
         exit(1);
@@ -18,17 +18,17 @@ int main(int argc, char **argv)
     servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
     servaddr.sin_port = htons(13);    /* daytime server */
 
-    bind(listenfd, (struct sockaddr *) &servaddr, sizeof(servaddr));
+    Bind(listenfd, (struct sockaddr *) &servaddr, sizeof(servaddr));
 
-    listen(listenfd, 1024);
+    Listen(listenfd, LISTENQ);
 
     for ( ; ; )
     {
-        connfd = accept(listenfd, (struct sockaddr *) NULL, NULL);
+        connfd = Accept(listenfd, (struct sockaddr *) NULL, NULL);
         ticks = time(NULL);
         snprintf(buff, sizeof(buff), "%.24s\r\n", ctime(&ticks));
-        write(connfd, buff, strlen(buff));
+        Write(connfd, buff, strlen(buff));
 
-        close(connfd);
+        Close(connfd);
     }
 }

@@ -13,27 +13,27 @@ int main(int argc, char **argv)
     void sig_chld(int);
 
     /* create listening TCP socket */
-    listenfd = socket(AF_INET, SOCK_STREAM, 0);
+    listenfd = Socket(AF_INET, SOCK_STREAM, 0);
 
     bzero(&servaddr, sizeof(servaddr));
     servaddr.sin_family      = AF_INET;
     servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
     servaddr.sin_port        = htons(SERV_PORT);
 
-    setsockopt(listenfd, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on));
-    bind(listenfd, (struct sockaddr *) &servaddr, sizeof(servaddr));
+    Setsockopt(listenfd, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on));
+    Bind(listenfd, (struct sockaddr *) &servaddr, sizeof(servaddr));
 
-    listen(listenfd, LISTENQ);
+    Listen(listenfd, LISTENQ);
 
     /* create UDP socket */
-    udpfd = socket(AF_INET, SOCK_DGRAM, 0);
+    udpfd = Socket(AF_INET, SOCK_DGRAM, 0);
 
     bzero(&servaddr, sizeof(servaddr));
     servaddr.sin_family      = AF_INET;
     servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
     servaddr.sin_port        = htons(SERV_PORT);
 
-    bind(udpfd, (struct sockaddr *) &servaddr, sizeof(servaddr));
+    Bind(udpfd, (struct sockaddr *) &servaddr, sizeof(servaddr));
 
     signal(SIGCHLD, sig_chld);
 
@@ -54,23 +54,23 @@ int main(int argc, char **argv)
         if (FD_ISSET(listenfd, &rset))
         {
             len = sizeof(cliaddr);
-            connfd = accept(listenfd, (struct sockaddr *) &cliaddr, &len);
+            connfd = Accept(listenfd, (struct sockaddr *) &cliaddr, &len);
     
-            if ((childpid = fork()) == 0)
+            if ((childpid = Fork()) == 0)
             {
-                close(listenfd);
+                Close(listenfd);
                 str_echo(connfd);
                 exit(0);
             }
-            close(connfd);
+            Close(connfd);
         }
 
         if (FD_ISSET(udpfd, &rset))
         {
             len = sizeof(cliaddr);
-            n = recvfrom(udpfd, mesg, MAXLINE, 0, (struct sockaddr *) &cliaddr, &len);
+            n = Recvfrom(udpfd, mesg, MAXLINE, 0, (struct sockaddr *) &cliaddr, &len);
 
-            sendto(udpfd, mesg, n, 0, (struct sockaddr *) &cliaddr, len);
+            Sendto(udpfd, mesg, n, 0, (struct sockaddr *) &cliaddr, len);
         }
     }
 }

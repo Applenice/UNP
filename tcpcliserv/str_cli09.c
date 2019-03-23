@@ -1,4 +1,4 @@
-#include "../lib/unp.h"
+#include "unp.h"
 #include "sum.h"
 
 void str_cli(FILE *fp, int sockfd)
@@ -7,7 +7,7 @@ void str_cli(FILE *fp, int sockfd)
     struct args args;
     struct result result;
 
-    while (fgets(sendline, MAXLINE, fp) != NULL)
+    while (Fgets(sendline, MAXLINE, fp) != NULL)
     {
         if (sscanf(sendline, "%ld%ld", &args.arg1, &args.arg2) != 2)
         {

@@ -10,6 +10,6 @@ void dg_cli(FILE *fp, int sockfd, const (struct sockaddr *) pservaddr, socklen_t
 
     for (i = 0; i < NDG; i++)
     {
-        sendto(sockfd, sendline, DGLEN, 0, pservaddr, servlen);
+        Sendto(sockfd, sendline, DGLEN, 0, pservaddr, servlen);
     }
 }

@@ -1,12 +1,12 @@
-#include "../lib/unp.h"
+#include "unp.h"
 
 #define CPU_VENDOR_OS "x86_64-linux-gnu"
 
 int main(int argc, char **argv)
 {
     union {
-      short s;
-      char c[sizeof(short)];
+        short s;
+        char c[sizeof(short)];
     } un;
 
     un.s = 0x0102;
@@ -25,6 +25,6 @@ int main(int argc, char **argv)
     } else {
         printf("sizeof(short) = %ld\n", sizeof(short));
     }
-
+    
     exit(0);
 }

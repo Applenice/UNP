@@ -11,9 +11,9 @@ int main(int argc, char **argv)
     bzero(&servaddr, sizeof(servaddr));
     servaddr.sin_family = AF_INET;
     servaddr.sin_port = htons(SERV_PORT);
-    inet_pton(AF_INET, argv[1], &servaddr.sin_addr);
+    Inet_pton(AF_INET, argv[1], &servaddr.sin_addr);
 
-    sockfd = socket(AF_INET, SOCK_DGRAM, 0);
+    sockfd = Socket(AF_INET, SOCK_DGRAM, 0);
 
     dg_cli(stdin, sockfd, (struct sockaddr *) &servaddr, sizeof(servaddr));
 

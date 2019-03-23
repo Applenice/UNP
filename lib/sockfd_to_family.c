@@ -15,6 +15,6 @@ int Sockfd_to_family(int sockfd)
 {
     int rc;
     if ((rc = sockfd_to_family(sockfd)) < 0)
-        printf("sockfd_to_family error");
+        err_sys("sockfd_to_family error");
     return rc;
 }

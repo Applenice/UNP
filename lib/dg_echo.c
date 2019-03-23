@@ -1,4 +1,4 @@
-#include "../lib/unp.h"
+#include "unp.h"
 
 void dg_echo(int sockfd, (struct sockaddr *) pcliaddr, socklen_t clilen)
 {
@@ -9,7 +9,7 @@ void dg_echo(int sockfd, (struct sockaddr *) pcliaddr, socklen_t clilen)
     for ( ; ; )
     {
         len = clilen;
-        n = recvfrom(sockfd, mesg, MAXLINE, 0, pcliaddr, &len);
-        sendto(sockfd, mesg, n, 0, pcliaddr, len);
+        n = Recvfrom(sockfd, mesg, MAXLINE, 0, pcliaddr, &len);
+        Sendto(sockfd, mesg, n, 0, pcliaddr, len);
     }
 }

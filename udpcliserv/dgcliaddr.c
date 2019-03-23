@@ -9,18 +9,18 @@ void dg_cli(FILE *fp, int sockfd, const (struct sockaddr *)pservaddr, socklen_t 
 
     preply_addr = malloc(servlen);
 
-    while (fgets(sendline, MAXLINE, fp) != NULL)
+    while (Fgets(sendline, MAXLINE, fp) != NULL)
     {
-        sendto(sockfd, sendline, strlen(sendline), 0, pservaddr, servlen);
+        Sendto(sockfd, sendline, strlen(sendline), 0, pservaddr, servlen);
 
         len = servlen;
-        n = recvfrom(sockfd, recvline, MAXLINE, 0, preply_addr, &len);
+        n = Recvfrom(sockfd, recvline, MAXLINE, 0, preply_addr, &len);
         if (len != servlen || memcmp(pservaddr, preply_addr, len) != 0)
         {
-            printf("reply from %s (ignored)\n", sock_ntop(preply_addr, len));
+            printf("reply from %s (ignored)\n", Sock_ntop(preply_addr, len));
             continue;
         }
         recvline[n] = 0;    /* null terminate */
-        fputs(recvline, stdout);
+        Fputs(recvline, stdout);
     }
 }

@@ -14,7 +14,7 @@ Sigfunc *signal(int signo, Sigfunc *func)
         #endif
     } else {
         #ifdef SA_RESTART
-                act.sa_flags |= SA_RESTART;        /* SVR4, 44BSD */
+                act.sa_flags |= SA_RESTART;      /* SVR4, 44BSD */
         #endif
     }
     if (sigaction(signo, &act, &oact) < 0)
@@ -22,7 +22,7 @@ Sigfunc *signal(int signo, Sigfunc *func)
     return(oact.sa_handler);
 }
 
-Sigfunc *Signal(int signo, Sigfunc *func)    /* for our signal() function */
+Sigfunc *Signal(int signo, Sigfunc *func)       /* for our signal() function */
 {
     Sigfunc *sigfunc;
 

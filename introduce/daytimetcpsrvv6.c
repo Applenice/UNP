@@ -1,4 +1,5 @@
-#include "../lib/unp.h"
+#include "unp.h"
+#include <time.h>
 
 int main(int argc, char **argv)
 {
@@ -8,29 +9,26 @@ int main(int argc, char **argv)
     char buff[MAXLINE];
     time_t ticks;
 
-    if ((listenfd = socket(AF_INET6, SOCK_STREAM, 0)) < 0)
-    {   
-        printf("create listenfd fail\n");
-        exit(1);
-    }
+    listenfd = Socket(AF_INET6, SOCK_STREAM, 0)；
 
     bzero(&servaddr, sizeof(servaddr));
     servaddr.sin6_family = AF_INET6;
     servaddr.sin6_addr = in6addr_any;
     servaddr.sin6_port = htons(13);    /* daytime server */
 
-    bind(listenfd, (struct sockaddr *) &servaddr, sizeof(servaddr));
+    Bind(listenfd, (struct sockaddr *) &servaddr, sizeof(servaddr));
 
-    listen(listenfd, 1024);
+    Listen(listenfd, 1024);
 
     for ( ; ; )
     {	
 		len = sizeof(cliaddr);
-        connfd = accept(listenfd, (struct sockaddr *) &cliaddr, &len);
+        connfd = Accept(listenfd, (struct sockaddr *) &cliaddr, &len);
+        printf("connection from %s\n", Sock_ntop((struct sockaddr *) &cliaddr, len));
         ticks = time(NULL);
         snprintf(buff, sizeof(buff), "%.24s\r\n", ctime(&ticks));
-        write(connfd, buff, strlen(buff));
+        Write(connfd, buff, strlen(buff));
 
-        close(connfd);
+        Close(connfd);
     }
 }

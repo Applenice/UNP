@@ -6,20 +6,17 @@ void str_echo(int sockfd)
     char buf[MAXLINE];
 
 again:
-    for ( ; ; )
+    while ((n = read(sockfd, buf, MAXLINE)) > 0)
     {
-        while ((n = read(sockfd, buf, MAXLINE)) > 0)
-        {
-            Writen(sockfd, buf, n);
-        }
+        Writen(sockfd, buf, n);
+    }
 
-        if (n < 0 && errno == EINTR)
-        {
-            goto again;
-        }
-        else if (n < 0)
-        {
-            err_sys("str_echo: read error");
-        }
+    if (n < 0 && errno == EINTR)
+    {
+        goto again;
+    }
+    else if (n < 0)
+    {
+        err_sys("str_echo: read error");
     }
 }

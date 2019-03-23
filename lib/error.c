@@ -1,4 +1,4 @@
-#include "../lib/unp.h"
+#include "unp.h"
 
 #include <stdarg.h>        /* ANSI C header file */
 #include <syslog.h>        /* for syslog() */

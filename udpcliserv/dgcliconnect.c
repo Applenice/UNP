@@ -5,13 +5,13 @@ void dg_cli(FILE *fp, int sockfd, const (struct sockaddr *) pservaddr, socklen_t
     int n;
     char sendline[MAXLINE], recvline[MAXLINE + 1];
 
-    connect(sockfd, (struct sockaddr *) pservaddr, servlen);
+    Connect(sockfd, (struct sockaddr *) pservaddr, servlen);
 
-    while (fgets(sendline, MAXLINE, fp) != NULL)
+    while (Fgets(sendline, MAXLINE, fp) != NULL)
     {
-        write(sockfd, sendline, strlen(sendline));
-        n = read(sockfd, recvline, MAXLINE);
+        Write(sockfd, sendline, strlen(sendline));
+        n = Read(sockfd, recvline, MAXLINE);
         recvline[n] = 0;    /* null terminate */
-        fputs(recvline, stdout);
+        Fputs(recvline, stdout);
     }
 }

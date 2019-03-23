@@ -8,12 +8,12 @@ void dg_echo(int sockfd, (struct sockaddr *) pcliaddr, socklen_t clilen)
     socklen_t len;
     char mesg[MAXLINE];
 
-    signal(SIGINT, recvfrom_int);
+    Signal(SIGINT, recvfrom_int);
 
     for ( ; ; )
     {
         len = clilen;
-        recvfrom(sockfd, mesg, MAXLINE, 0, pcliaddr, &len);
+        Recvfrom(sockfd, mesg, MAXLINE, 0, pcliaddr, &len);
         count++;
     }
 }

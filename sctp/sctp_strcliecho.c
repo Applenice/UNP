@@ -8,7 +8,7 @@ void sctpstr_cli_echoall(FILE *fp, int sock_fd, struct sockaddr *to, socklen_t t
     struct sctp_sndrcvinfo sri;
     char sendline[SCTP_MAXLINE], recvline[SCTP_MAXLINE];
     socklen_t len;
-    int rd_sz,i,strsz;
+    int rd_sz, i, strsz;
     int msg_flags;
 
     bzero(sendline, sizeof(sendline));

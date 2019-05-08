@@ -1,0 +1,37 @@
+#include "unp.h"
+
+int main(int argc, char **argv)
+{
+    int sock_fd,msg_flags;
+    char readbuf[BUFFSIZE];
+    struct sockaddr_in servaddr, cliaddr;
+    struct sctp_sndrcvinfo sri;
+    struct sctp_event_subscribe evnts;
+    int stream_increment=1;
+    socklen_t len;
+    size_t rd_sz;
+
+    if (argc == 2) 
+    {
+        stream_increment = atoi(argv[1]);
+    }
+    sock_fd = Socket(AF_INET, SOCK_SEQPACKET, IPPROTO_SCTP);
+    bzero(&initm, sizeof(initm));
+    initm.sinit_num_ostreams = SERV_MORE_STRMS_SCTP;
+    Setsockopt(sock_fd, IPPROTO_SCTP, SCTP_EVENTS, &initm, sizeof(initm));
+
+    Listen(sock_fd, LISTENQ);
+    for ( ; ; )
+    {
+        len = sizeof(struct sockaddr_in);
+        rd_sz = Sctp_recvmsg(sock_fd, readbuf, sizeof(readbuf), (struct sockaddr *)&cliaddr, &len, &sri, &msg_flags);
+        if(stream_increment)
+        {
+            sri.sinfo_stream++;
+            if(sri.sinfo_stream >= sctp_get_no_strms(sock_fd, (struct sockaddr *)&cliaddr, len)) {
+                sri.sinfo_stream = 0;
+            }    
+        }
+        Sctp_sendmsg(sock_fd, readbuf, rd_sz, (struct sockaddr *)&cliaddr, len, sri.sinfo_ppid, (sri.sinfo_flags|MSG_EOF), sri.sinfo_stream, 0, 0);
+    }
+}

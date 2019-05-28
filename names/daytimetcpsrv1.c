@@ -17,8 +17,8 @@ int main(int argc, char **argv)
     for ( ; ; )
     {
         len = sizeof(cliaddr);
-        connfd = Accept(listenfd, (SA *)&cliaddr, &len);
-        printf("connection from %s\n", Sock_ntop((SA *)&cliaddr, len));
+        connfd = Accept(listenfd, (struct sockaddr *)&cliaddr, &len);
+        printf("connection from %s\n", Sock_ntop((struct sockaddr *)&cliaddr, len));
 
         ticks = time(NULL);
         snprintf(buff, sizeof(buff), "%.24s\r\n", ctime(&ticks));
